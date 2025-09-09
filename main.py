@@ -29,6 +29,9 @@ models = []  # In-memory store
 # Endpoint for adding new models
 @app.post("/models", response_model=Model)
 def register_model(model_create: ModelCreate):
+    """
+    Register a new machine learning model with a generated UUID and timestamp.
+    """
     model = Model(
         id=uuid4(),
         name=model_create.name,
@@ -46,6 +49,9 @@ def list_models():
 # Endpoint for retrieving specific model with the given model_id
 @app.get("/models/{model_id}", response_model=Model)
 def get_model_by_id(model_id: UUID):
+    """
+    Retrieve a model from the in-memory registry using its UUID.
+    """
     for model in models:
         if model.id == model_id:
             return model
